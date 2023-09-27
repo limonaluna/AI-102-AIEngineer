@@ -44,7 +44,13 @@ def Translate(targetLanguage):
     translation = ''
 
     # Translate speech
-
+    audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
+    translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config = audio_config)
+    print("Speak now...")
+    result = translator.recognize_once_async().get()
+    print('Translating "{}"'.format(result.text))
+    translation = result.translations[targetLanguage]
+    print(translation)
 
     # Synthesize translation
 
